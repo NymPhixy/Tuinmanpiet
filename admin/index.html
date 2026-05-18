@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="nl">
+
+<head>
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <meta name="robots" content="noindex" />
+
+   <title>Beheer - Tuinman Piet</title>
+   <meta name="description"
+      content="Decap CMS - Projectbeheer voor Tuinman Piet. Voeg projecten toe, bewerk, en beheer foto's.">
+
+   <!-- Decap CMS CSS -->
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/decap-cms@^3.0.0/dist/decap-cms.css" />
+
+   <!-- Custom styles voor branding -->
+   <style>
+      /* ============================================
+           CUSTOM BRANDING VOOR DECAP CMS
+           ============================================ */
+
+      /* Voorkeur voor merk-kleuren */
+      :root {
+         --color-primary-orange: #ff9800;
+         --color-primary-orange-dark: #f57c00;
+         --color-secondary-green: #4caf50;
+         --color-white: #ffffff;
+         --color-dark: #1a1a1a;
+      }
+
+      body {
+         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+            sans-serif;
+         background-color: #f5f5f5;
+         margin: 0;
+         padding: 0;
+      }
+
+      /* Zorg dat CMS goed zichtbaar is */
+      #nc-root {
+         min-height: 100vh;
+      }
+
+      /* ============================================
+           ACCESSIBILITY
+           ============================================ */
+
+      /* Focus states voor toetsenbordgebruikers */
+      *:focus {
+         outline: 2px solid var(--color-primary-orange);
+         outline-offset: 2px;
+      }
+
+      /* Skip to admin link (voor screenreaders) */
+      .sr-only {
+         position: absolute;
+         width: 1px;
+         height: 1px;
+         padding: 0;
+         margin: -1px;
+         overflow: hidden;
+         clip: rect(0, 0, 0, 0);
+         white-space: nowrap;
+         border-width: 0;
+      }
+   </style>
+</head>
+
+<body>
+   <!-- ============================================
+         Decap CMS container
+         ============================================ -->
+   <div id="nc-root"></div>
+
+   <!-- Decap CMS JavaScript -->
+   <script src="https://cdn.jsdelivr.net/npm/decap-cms@^3.0.0/dist/decap-cms.min.js"></script>
+
+   <!-- ============================================
+         DECAP CMS VOORBEREIDING VOOR PIET
+         ============================================
+         
+         TECHNISCHE VOORBEREIDING:
+         
+         Deze pagina laadt Decap CMS via CDN.
+         Dit betekent dat projectbeheer later beschikbaar is,
+         zodra de website op een server staat met GitHub-integratie.
+         
+         STAPPEN VOOR LIVE DEPLOYMENT:
+         
+         1. GITHUB REPOSITORY
+            - Code pushen naar GitHub repository
+            - voorbeeld: github.com/tuinmanpiet/tuinmanpiet
+         
+         2. NETLIFY DEPLOYMENT
+            - Website deployen met Netlify (gratis)
+            - https://app.netlify.com
+            - Stappen:
+              a. Klik op "New site from Git"
+              b. Selecteer GitHub repository
+              c. Zet "npm run build" als build command (of laat leeg voor static)
+              d. Deploy!
+         
+         3. NETLIFY IDENTITY INSTELLEN
+            - In Netlify Dashboard: Gaat naar "Identity" → "Enable Identity"
+            - Klik op "Settings and usage" → "Providers"
+            - Koppel GitHub als OAuth provider
+            - Stel gebruikersinstellingen in
+         
+         4. GIT GATEWAY INSCHAKELEN
+            - In Identity: "Settings and usage"
+            - Ga naar "Services" → "Git Gateway" → Enable
+            - Dit maakt CMS editeerbaar
+         
+         5. ADMINS TOEVOEGEN
+            - In Netlify Dashboard: Identity → gebruikers toevoegen
+            - Piet krijgt uitnodigingsmail met loginlink
+            - Piet klik op link in mail → kan inloggen
+         
+         6. KLAAR!
+            - Knopje naar admin: https://jouw-site.netlify.app/admin
+            - Piet logt in met GitHub
+            - Piet kan projecten beheren!
+         
+         VEILIGHEID:
+         - Niemand anders kan inloggen (alleen uitgenodigden)
+         - Alle wijzigingen gaan naar GitHub (traceerbaar)
+         - CSS veilig (geen uploads mogelijk op publieke website)
+         - Gebruikers kunnen GEEN bestanden uploaden naar publieke site
+         - Alleen CMS uploads worden toegestaan
+         
+         CONFIG AANPASSEN:
+         - Dit bestand verwijst naar: admin/config.yml
+         - In config.yml kan je:
+           * Backend instellen (test-repo → git-gateway)
+           * Velden toevoegen/wijzigen
+           * Foto-mappen instellen
+           * Collecties beheren
+         
+         TESTEN LOKAAL:
+         - Deze pagina werkt lokaal op Live Server
+         - Maar edit/save functies werken niet zonder backend
+         - Dat is normaal en gewenst!
+         
+         EMAIL NOTIFICATIES (OPTIONEEL):
+         - Piet kan notificaties krijgen bij wijzigingen
+         - Dit kan ingesteld worden in Netlify Settings
+         
+         FEEDBACK?
+         - Vragen? Kijk in https://decapcms.org/docs/intro/
+         - Decap CMS is open-source en goed gedocumenteerd
+         
+         ============================================ -->
+</body>
+
+</html>
+4. AUTOMATIC DEPLOYMENT
+- Wijzigingen in CMS
+- ↓ Push naar GitHub
+- ↓ Webhooks triggeren
+- ↓ Netlify rebuild
+- ↓ Website update in live
+
+LOKAAL WERKT DIT NIET MET VOLLEDIGE CMS-FUNCTIES!
+De UI laadt wel, maar opslaan vergt backend-configuratie.
+
+============================================ -->
+</body>
+
+</html>

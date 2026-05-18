@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projecten - Tuinman Piet</title>
+    <meta name="description"
+        content="Bekijk ons portfolio van afgeronde tuinprojecten in Musselkanaal en omgeving. Tuinaanleg, onderhoud, renovatie en meer.">
+
+    <link rel="icon" type="image/png" href="assets/img/projects/icon.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- ============================================
+         HEADER / NAVIGATIE
+         ============================================ -->
+    <header class="header">
+        <div class="header-container">
+            <!-- Logo / Naam -->
+            <div class="logo">
+                <a href="index.html" class="logo-link">
+                    <img src="assets/img/projects/logo.png" alt="Tuinman Piet Logo" class="logo-img">
+                </a>
+            </div>
+
+            <!-- Hamburger menu button (Mobile) -->
+            <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+            </button>
+
+            <!-- Navigatie -->
+            <nav class="nav" aria-label="Hoofdnavigatié">
+                <ul class="nav-list">
+                    <li><a href="index.html#home" class="nav-link">Home</a></li>
+                    <li><a href="index.html#services" class="nav-link">Werkzaamheden</a></li>
+                    <li><a href="projecten.html" class="nav-link active">Projecten</a></li>
+                    <li><a href="index.html#about" class="nav-link">Over Piet</a></li>
+                    <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- ============================================
+             PAGE HERO / INTRO
+             ============================================ -->
+        <section class="projects-hero">
+            <div class="container">
+                <h1 class="section-title">Ons Portfolio</h1>
+                <p class="section-subtitle">Voorbeelden van afgerond tuinwerk in Musselkanaal en omgeving</p>
+            </div>
+        </section>
+
+        <!-- ============================================
+             PROJECTS SECTIE MET FILTERS
+             ============================================ -->
+        <section class="projects-section">
+            <div class="container">
+                <!-- Filter buttons -->
+                <div class="projects-filter" role="group" aria-label="Project categorieën">
+                    <button class="filter-btn active" data-filter="all">Alles</button>
+                    <button class="filter-btn" data-filter="Aanleg">Aanleg</button>
+                    <button class="filter-btn" data-filter="Onderhoud">Onderhoud</button>
+                    <button class="filter-btn" data-filter="Renovatie">Renovatie</button>
+                    <button class="filter-btn" data-filter="Bestrating">Bestrating</button>
+                    <button class="filter-btn" data-filter="Schuttingen">Schuttingen</button>
+                </div>
+
+                <!-- Projects grid -->
+                <div id="projects-grid" class="projects-grid">
+                    <!-- Projecten worden hier dynamisch ingeladen via JavaScript -->
+                </div>
+
+                <!-- Error message (hidden by default) -->
+                <div id="projects-error" class="projects-error" style="display: none;">
+                    <p>Projecten konden niet worden geladen. Probeer het later opnieuw.</p>
+                </div>
+
+                <!-- Loading indicator (hidden by default) -->
+                <div id="projects-loading" class="projects-loading" style="display: none;">
+                    <p>Projecten laden...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ============================================
+         PROJECT DETAIL MODAL
+         ============================================ -->
+    <div id="project-modal" class="modal" role="dialog" aria-hidden="true" aria-labelledby="modal-title">
+        <div class="modal-overlay" id="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Sluit project detail">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+
+            <div class="modal-header">
+                <div id="modal-image" class="modal-image">
+                    <!-- Cover image wordt hier ingeladen -->
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <div class="modal-info">
+                    <h2 id="modal-title" class="modal-title">
+                        <!-- Titel wordt hier ingeladen -->
+                    </h2>
+
+                    <div class="modal-meta">
+                        <div class="meta-item">
+                            <strong>Categorie:</strong>
+                            <span id="modal-category"></span>
+                        </div>
+                        <div class="meta-item">
+                            <strong>Locatie:</strong>
+                            <span id="modal-location"></span>
+                        </div>
+                        <div class="meta-item">
+                            <strong>Jaar:</strong>
+                            <span id="modal-year"></span>
+                        </div>
+                    </div>
+
+                    <p id="modal-description" class="modal-description">
+                        <!-- Beschrijving wordt hier ingeladen -->
+                    </p>
+                </div>
+
+                <!-- Extra images carousel (if available) -->
+                <div id="modal-gallery" class="modal-gallery" style="display: none;">
+                    <h3>Meer foto's</h3>
+                    <div id="modal-gallery-images" class="gallery-images">
+                        <!-- Extra afbeeldingen worden hier ingeladen -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2026 Tuinman Piet. Alle rechten voorbehouden.</p>
+                <p>Website gemaakt door RGB Visuals</p>
+            </div>
+
+            <nav class="footer-nav" aria-label="Footer navigatie">
+                <ul>
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#services">Werkzaamheden</a></li>
+                    <li><a href="projecten.html">Projecten</a></li>
+                    <li><a href="index.html#about">Over Piet</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+
+</html>

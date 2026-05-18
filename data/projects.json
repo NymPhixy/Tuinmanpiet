@@ -1,0 +1,64 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "title": "Tuinonderhoud in Musselkanaal",
+      "category": "Onderhoud",
+      "location": "Musselkanaal",
+      "year": "2026",
+      "description": "Onderhoudswerkzaamheden aan een particuliere tuin met snoeiwerk, onkruidverwijdering en nette afwerking. Regelmatige zorg voor gezonde en fraaie groene elementen.",
+      "coverImage": "assets/img/projects/placemaker.png",
+      "images": ["assets/img/projects/placemaker.png"]
+    },
+    {
+      "id": 2,
+      "title": "Schutting geplaatst in Musselkanaal",
+      "category": "Schuttingen",
+      "location": "Musselkanaal",
+      "year": "2026",
+      "description": "Professionele plaatsing van een nieuwe houten schutting. Stevig werk met aandacht voor detail en degelijke afwerking.",
+      "coverImage": "assets/img/projects/placemaker.png",
+      "images": ["assets/img/projects/placemaker.png"]
+    },
+    {
+      "id": 3,
+      "title": "Tuinrenovatie met bestrating",
+      "category": "Renovatie",
+      "location": "Musselkanaal",
+      "year": "2025",
+      "description": "Volledige renovatie van een bestaande tuin inclusief nieuwe bestrating, heraanleg van groene elementen en moderne aanpassingen.",
+      "coverImage": "assets/img/projects/placemaker.png",
+      "images": ["assets/img/projects/placemaker.png"]
+    },
+    {
+      "id": 4,
+      "title": "Snoeiwerk en onderhoud",
+      "category": "Onderhoud",
+      "location": "Omgeving Musselkanaal",
+      "year": "2025",
+      "description": "Professioneel snoeiwerk aan bomen en heesters. Zorgen dat alles in vorm blijft, veiligheid is eerste prioriteit.",
+      "coverImage": "assets/img/projects/placemaker.png",
+      "images": ["assets/img/projects/placemaker.png"]
+    },
+    {
+      "id": 5,
+      "title": "Nieuwe borders aangelegd",
+      "category": "Aanleg",
+      "location": "Musselkanaal",
+      "year": "2025",
+      "description": "Aanleg van nieuwe borders met aandacht voor plantencombinaties. Goede voorbereiding van grond en ondergrond voor optimale groei.",
+      "coverImage": "assets/img/projects/placemaker.png",
+      "images": ["assets/img/projects/placemaker.png"]
+    },
+    {
+      "id": 6,
+      "title": "Grindbak en bloembakken geplaatst",
+      "category": "Aanleg",
+      "location": "Omgeving Musselkanaal",
+      "year": "2024",
+      "description": "Plaatsing van grindbak en bloembakken met onderhoudsvriendelijk ontwerp. Praktische opzet die jaren meegaat.",
+      "coverImage": "assets/img/projects/placemaker.png",
+      "images": ["assets/img/projects/placemaker.png"]
+    }
+  ]
+}

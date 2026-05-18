@@ -1,0 +1,256 @@
+# ============================================
+# DECAP CMS CONFIGURATIE - TUINMAN PIET
+# ============================================
+# Deze configuratie is voorbereid voor Decap CMS
+# (voorheen NetlifyCMS)
+#
+# BELANGRIJK: Voor live gebruik nodig:
+# 1. Website deployen via GitHub + Netlify (of vergelijkbare service)
+# 2. Git Gateway of GitHub Authentication instellen
+# 3. Backend configureren in deze config (zie opties hieronder)
+# 4. Media folder op CDN configureren
+#
+# Lokale test:
+# Deze config werkt lokaal in development/preview modus,
+# maar CMS-functionaliteit (opslaan/publiceren) werkt alleen
+# met een geconfigureerde backend (minimaal test-backend).
+
+# ============================================
+# BACKEND CONFIGURATIE
+# ============================================
+# Voor LOKAAL DEVELOPMENT (geen save functie):
+backend:
+  name: test-repo
+  branch: main
+
+# Voor LIVE deployment met Netlify + GitHub:
+# Vervang de bovenstaande backend opties door:
+#
+# backend:
+#   name: git-gateway
+#   branch: main
+#
+# En zorg dat deze omgevingsvariabelen op Netlify staan:
+# - NETLIFY_SITE_ID (van Netlify)
+# - IDENTITY_URL (van Netlify Identity)
+
+# ============================================
+# MEDIA & PUBLIC FOLDER
+# ============================================
+media_folder: "assets/img/projects"
+public_folder: "assets/img/projects"
+
+# ============================================
+# COLLECTIONS (INHOUDSTYPES)
+# ============================================
+collections:
+  # ============================================
+  # PROJECTEN COLLECTIE
+  # ============================================
+  - name: "projects"
+    label: "Projecten"
+    file: "data/projects.json"
+    format: "json-array"
+    fields:
+      - label: "Projecten"
+        name: "projects"
+        widget: "list"
+        fields:
+          - label: "ID"
+            name: "id"
+            widget: "number"
+          - label: "Titel"
+            name: "title"
+            widget: "string"
+            required: true
+          - label: "Categorie"
+            name: "category"
+            widget: "select"
+            options:
+              - "Aanleg"
+              - "Onderhoud"
+              - "Renovatie"
+              - "Bestrating"
+              - "Schuttingen"
+            required: true
+          - label: "Locatie"
+            name: "location"
+            widget: "string"
+            required: true
+          - label: "Jaar"
+            name: "year"
+            widget: "string"
+            required: true
+          - label: "Beschrijving"
+            name: "description"
+            widget: "text"
+            required: true
+          - label: "Hoofdafbeelding"
+            name: "coverImage"
+            widget: "image"
+            required: true
+          - label: "Extra afbeeldingen"
+            name: "images"
+            widget: "list"
+            field:
+              label: "Afbeelding"
+              name: "image"
+              widget: "image"
+
+# ============================================
+# NOTITIES VOOR PIET
+# ============================================
+# Wat is Decap CMS?
+# Decap CMS is een headless CMS dat rechtstreeks
+# met GitHub werkt. Je kan inloggen op /admin en
+# projecten beheren zonder technische kennis.
+#
+# Hoe werkt het?
+# 1. Je gaat naar: https://jouw-website.nl/admin
+# 2. Je logt in met je GitHub account
+# 3. Je voegt projecten toe, wijzigt ze of verwijdert ze
+# 4. Je klikt "Publish" → wijzigingen gaan live
+#
+# Wat kun je doen?
+# - Projecten toevoegen (titel, categorie, foto's, etc)
+# - Projecten bewerken (alles aanpassen)
+# - Projecten verwijderen
+# - Foto's uploaden en beheren
+#
+# Wat kun je NIET doen?
+# - Het CMS werkt niet op een lokale computer/Live Server
+# - Je hebt hosting + GitHub koppelingen nodig
+# - Beweerkingen gebeuren direct in GitHub
+#
+# Volgende stappen voor live gebruik:
+# 1. Push deze code naar GitHub
+# 2. Deploy via Netlify (gratis en eenvoudig)
+# 3. Koppel Netlify Identity
+# 4. Geef jezelf toegang via uitnodigingsmail
+# 5. Klaar! Je kan inloggen op /admin
+    format: "json"
+    
+    # CMS UI fields
+    fields:
+      - { 
+          label: "Titel", 
+          name: "title", 
+          widget: "string",
+          hint: "Naam van het project, bijv. 'Tuinonderhoud in Musselkanaal'"
+        }
+      - { 
+          label: "Categorie", 
+          name: "category", 
+          widget: "select",
+          options: 
+            - "Aanleg"
+            - "Onderhoud"
+            - "Renovatie"
+            - "Bestrating"
+            - "Schuttingen"
+          hint: "Kies de passende categorie"
+        }
+      - { 
+          label: "Locatie", 
+          name: "location", 
+          widget: "string",
+          hint: "Plaats waar het project is uitgevoerd, bijv. 'Musselkanaal'"
+        }
+      - { 
+          label: "Jaar", 
+          name: "year", 
+          widget: "string",
+          hint: "Jaar van afronding, bijv. '2026'"
+        }
+      - { 
+          label: "Omschrijving", 
+          name: "description", 
+          widget: "text",
+          hint: "Korte beschrijving van het project (wat is gedaan, waarom, hoe)"
+        }
+      - { 
+          label: "Voorafbeelding", 
+          name: "coverImage", 
+          widget: "image",
+          hint: "Hoofdfoto van het project (minimaal 600x400px)"
+        }
+      - { 
+          label: "Extra afbeeldingen", 
+          name: "images", 
+          widget: "list",
+          field: { label: "Afbeelding", name: "image", widget: "image" },
+          hint: "Voeg meerdere foto's toe van verschillende hoeken/details"
+        }
+
+# ============================================
+# STAPPEN VOOR DEPLOYMENT MET NETLIFY + GITHUB
+# ============================================
+#
+# 1. GITHUB REPOSITORY
+#    - Push deze code naar een GitHub repository
+#    - https://github.com/new
+#    - Zorg dat alle bestanden erin zitten (incl. deze config.yml)
+#
+# 2. NETLIFY DEPLOYMENT
+#    - Login op https://netlify.com
+#    - "Add new site" → "Connect to Git"
+#    - Kies GitHub repository
+#    - Build command: (leeg laten)
+#    - Publish directory: . (root)
+#    - Deploy
+#    - Je site krijgt een automatische URL
+#
+# 3. IDENTITY / GIT GATEWAY INSTELLEN
+#    - In Netlify Dashboard → Site settings → Identity
+#    - Enable Identity
+#    - Registration preferences: Invite only (veilig)
+#    - External providers: GitHub (optioneel, voor 2FA)
+#    - Klik "Enable Git Gateway"
+#
+# 4. GITHUB OAUTH (optioneel, voor betere beveiliging)
+#    - GitHub Settings → Developer settings → OAuth Apps
+#    - New OAuth App
+#    - Authorization callback URL: https://api.netlify.com/auth/done
+#    - Kopieer Client ID en Secret naar Netlify
+#
+# 5. AUTHOR & PUBLISH WORKFLOWS (optioneel)
+#    - In Netlify → Identity → Services
+#    - Configure -> GitHub
+#    - Dit maakt Pull Requests voor preview
+#
+# 6. CONFIG.YML AANPASSEN
+#    - Vervang de backend sectie hierboven met:
+#      backend:
+#        name: git-gateway
+#        branch: main
+#        base_url: https://jouw-website.netlify.app
+#    - Vervang authorize_url en andere URL's
+#
+# 7. TEST DE CMS
+#    - Ga naar: https://jouw-website.netlify.app/admin/
+#    - Login met je Email (die je bij Netlify hebt ingesteld)
+#    - Create/Edit/Delete projecten
+#    - Wijzigingen pushen automatisch naar GitHub
+#
+# ============================================
+# LOKAAL TESTING (ZONDER BACKEND)
+# ============================================
+# Lokaal werkt deze config NIET voor opslaan,
+# maar je kunt wel de layout/UI bekijken.
+#
+# Voor volledige lokale testing met opslaan:
+# npm install -g decap-cms-cli
+# decap-cms-cli serve
+#
+# ============================================
+# VOORDELEN VAN DEZE SETUP
+# ============================================
+# ✓ Piet kan projecten toevoegen via web interface
+# ✓ Geen code-kennis nodig
+# ✓ Automatische deployment via Git
+# ✓ Versionering & rollback mogelijk
+# ✓ Veilig (GitHub auth)
+# ✓ Goedkoop / gratis met Netlify
+# ✓ Schaalbaarheid verzekerd
+#
+# ============================================
