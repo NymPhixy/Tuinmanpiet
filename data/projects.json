@@ -7,8 +7,12 @@
       "location": "Musselkanaal",
       "year": "2026",
       "description": "Onderhoudswerkzaamheden aan een particuliere tuin met snoeiwerk, onkruidverwijdering en nette afwerking. Regelmatige zorg voor gezonde en fraaie groene elementen.",
-      "coverImage": "assets/img/projects/placemaker.png",
-      "images": ["assets/img/projects/placemaker.png"]
+      "coverImage": "assets/img/projects/WhatsApp Image 2026-06-07 at 19.22.40.jpeg",
+      "images": [
+        "assets/img/projects/WhatsApp Image 2026-06-07 at 19.22.40.jpeg",
+        "assets/img/projects/WhatsApp Image 2026-06-07 at 19.22.40 (1).jpeg",
+        "assets/img/projects/WhatsApp Image 2026-06-07 at 19.22.40 (2).jpeg"
+      ]
     },
     {
       "id": 2,
@@ -17,8 +21,13 @@
       "location": "Musselkanaal",
       "year": "2026",
       "description": "Professionele plaatsing van een nieuwe houten schutting. Stevig werk met aandacht voor detail en degelijke afwerking.",
-      "coverImage": "assets/img/projects/placemaker.png",
-      "images": ["assets/img/projects/placemaker.png"]
+      "coverImage": "assets/img/projects/WhatsApp Image 2026-07-20 at 09.38.21.jpeg",
+      "images": [
+        "assets/img/projects/WhatsApp Image 2026-07-20 at 09.38.21.jpeg",
+        "assets/img/projects/WhatsApp Image 2026-07-20 at 09.38.21 (1).jpeg",
+        "assets/img/projects/WhatsApp Image 2026-07-20 at 09.38.21 (2).jpeg",
+        "assets/img/projects/WhatsApp Image 2026-07-20 at 09.38.21 (3).jpeg"
+      ]
     },
     {
       "id": 3,
@@ -27,38 +36,66 @@
       "location": "Musselkanaal",
       "year": "2025",
       "description": "Volledige renovatie van een bestaande tuin inclusief nieuwe bestrating, heraanleg van groene elementen en moderne aanpassingen.",
-      "coverImage": "assets/img/projects/placemaker.png",
-      "images": ["assets/img/projects/placemaker.png"]
+      "coverImage": "assets/img/projects/WhatsApp Image 2026-08-11 at 15.35.33.jpeg",
+      "images": [
+        "assets/img/projects/WhatsApp Image 2026-08-11 at 15.35.33.jpeg",
+        "assets/img/projects/WhatsApp Image 2026-08-11 at 15.35.33 (1).jpeg"
+      ]
     },
     {
       "id": 4,
-      "title": "Snoeiwerk en onderhoud",
+      "title": "Onderhoud Meerstad",
       "category": "Onderhoud",
-      "location": "Omgeving Musselkanaal",
+      "location": "Meerstad",
       "year": "2025",
       "description": "Professioneel snoeiwerk aan bomen en heesters. Zorgen dat alles in vorm blijft, veiligheid is eerste prioriteit.",
-      "coverImage": "assets/img/projects/placemaker.png",
-      "images": ["assets/img/projects/placemaker.png"]
+      "coverImage": "assets/img/projects/WhatsApp Image 2026-07-19 at 14.10.13.jpeg",
+      "images": [
+        "assets/img/projects/WhatsApp Image 2026-07-19 at 14.10.13.jpeg",
+        "assets/img/projects/WhatsApp Image 2026-07-19 at 14.10.14.jpeg"
+      ]
     },
     {
       "id": 5,
-      "title": "Nieuwe borders aangelegd",
+      "title": "Nieuwe pergola in Musselkanaal",
       "category": "Aanleg",
       "location": "Musselkanaal",
       "year": "2025",
-      "description": "Aanleg van nieuwe borders met aandacht voor plantencombinaties. Goede voorbereiding van grond en ondergrond voor optimale groei.",
-      "coverImage": "assets/img/projects/placemaker.png",
-      "images": ["assets/img/projects/placemaker.png"]
+      "description": "Aanleg van een nieuwe pergola voor shade en karakter in de tuin. Mooi design element met aandacht voor functionaliteit en esthiek.",
+      "coverImage": "assets/img/projects/WhatsApp Image 2026-06-09 at 15.24.17.jpeg",
+      "images": [
+        "assets/img/projects/WhatsApp Image 2026-06-09 at 15.24.17.jpeg",
+        "assets/img/projects/WhatsApp Image 2026-06-09 at 15.24.17 (1).jpeg"
+      ]
     },
     {
       "id": 6,
-      "title": "Grindbak en bloembakken geplaatst",
+      "title": "Herstel werkzaamheden",
+      "category": "Onderhoud",
+      "location": "Musselkanaal",
+      "year": "2025",
+      "description": "Herstelwerkzaamheden aan bestaande tuinelementen. Reparatie en vernieuwing waar nodig voor optimale staat van onderhoud.",
+      "coverImage": "assets/img/projects/WhatsApp Image 2026-06-08 at 20.57.24.jpeg",
+      "images": [
+        "assets/img/projects/WhatsApp Image 2026-06-08 at 20.57.24.jpeg",
+        "assets/img/projects/WhatsApp Image 2026-07-20 at 09.38.22.jpeg",
+        "assets/img/projects/WhatsApp Image 2026-07-20 at 09.38.22 (1).jpeg"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Slingerpad van cortenstaal",
       "category": "Aanleg",
       "location": "Omgeving Musselkanaal",
       "year": "2024",
-      "description": "Plaatsing van grindbak en bloembakken met onderhoudsvriendelijk ontwerp. Praktische opzet die jaren meegaat.",
-      "coverImage": "assets/img/projects/placemaker.png",
-      "images": ["assets/img/projects/placemaker.png"]
+      "description": "Aanleg van een slingerpad gemaakt van cortenstaal. Modern design element dat goed integreert in de tuinlandschap met karakter.",
+      "coverImage": "assets/img/projects/WhatsApp Image 2026-07-22 at 08.06.14.jpeg",
+      "images": [
+        "assets/img/projects/WhatsApp Image 2026-07-22 at 08.06.14.jpeg",
+        "assets/img/projects/WhatsApp Image 2026-07-22 at 08.06.15.jpeg",
+        "assets/img/projects/WhatsApp Image 2026-07-22 at 09.29.01.jpeg",
+        "assets/img/projects/WhatsApp Image 2026-07-22 at 09.29.01 (1).jpeg"
+      ]
     }
   ]
 }

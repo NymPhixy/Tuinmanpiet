@@ -278,6 +278,8 @@ p {
   display: flex;
   list-style: none;
   gap: var(--spacing-xl);
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .nav-link {
@@ -474,16 +476,16 @@ p {
 
 .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--spacing-lg);
 }
 
 /* Portfolio Card */
 .portfolio-card {
-  background-color: var(--color-white);
-  border-radius: var(--border-radius-lg);
+  background-color: transparent;
+  border-radius: 0;
   overflow: hidden;
-  box-shadow: var(--shadow-md);
+  box-shadow: none;
   transition: all var(--transition-speed) ease;
   cursor: pointer;
   display: flex;
@@ -491,15 +493,15 @@ p {
 }
 
 .portfolio-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-lg);
+  transform: none;
+  box-shadow: none;
 }
 
 .portfolio-image {
   width: 100%;
   overflow: hidden;
-  background-color: var(--color-light-gray);
-  aspect-ratio: 4 / 3;
+  background-color: transparent;
+  aspect-ratio: auto;
 }
 
 .portfolio-image img {
@@ -514,10 +516,7 @@ p {
 }
 
 .portfolio-content {
-  padding: var(--spacing-lg);
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
+  display: none;
 }
 
 .portfolio-label {
@@ -710,6 +709,88 @@ p {
 }
 
 /* ============================================
+   14. FOTOGALERIJ SECTIE
+   ============================================ */
+.gallery {
+  padding: var(--spacing-xxl) var(--spacing-lg);
+  background: linear-gradient(180deg, #ffffff 0%, #f7f7f2 100%);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.gallery-tile {
+  appearance: none;
+  border: none;
+  background-color: var(--color-white);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  transition:
+    transform var(--transition-speed) ease,
+    box-shadow var(--transition-speed) ease;
+  min-height: 100%;
+}
+
+.gallery-tile:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.gallery-tile:focus {
+  outline: 2px solid var(--color-primary-orange);
+  outline-offset: 3px;
+}
+
+.gallery-tile-image {
+  aspect-ratio: 4 / 3;
+  background-color: var(--color-light-gray);
+  overflow: hidden;
+}
+
+.gallery-tile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-speed) ease;
+}
+
+.gallery-tile:hover .gallery-tile-image img {
+  transform: scale(1.05);
+}
+
+.gallery-tile-content {
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.gallery-tile-label {
+  display: inline-flex;
+  width: fit-content;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background-color: rgba(76, 175, 80, 0.12);
+  color: var(--color-secondary-green-dark);
+  font-size: var(--font-size-small);
+  font-weight: 700;
+}
+
+.gallery-tile strong {
+  color: var(--color-dark);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+/* ============================================
    15. PROJECTS PAGE STYLES
    ============================================ */
 
@@ -761,7 +842,7 @@ p {
 /* Projects grid */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--spacing-lg);
   margin-bottom: var(--spacing-xxl);
 }
@@ -950,7 +1031,7 @@ p {
 
 .gallery-images {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: var(--spacing-md);
 }
 
@@ -1037,7 +1118,12 @@ p {
 
   /* Portfolio Grid */
   .portfolio-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
+  }
+
+  /* Gallery */
+  .gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   /* About */
@@ -1206,6 +1292,16 @@ p {
     grid-template-columns: 1fr;
   }
 
+  /* Gallery */
+  .gallery {
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
   /* About */
   .about {
     padding: var(--spacing-xl) var(--spacing-md);
@@ -1298,9 +1394,200 @@ p {
   }
 }
 
+/* ============================================
+   18. CAROUSEL STYLES
+   ============================================ */
+.carousel-section {
+  background-color: var(--color-background-light);
+  padding: var(--spacing-lg) 0;
+}
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  gap: var(--spacing-lg);
+}
+
+.carousel-item {
+  flex: 1 0 100%;
+  min-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-white);
+  overflow: hidden;
+  box-shadow: none;
+  max-height: 70vh;
+  padding: 0;
+}
+
+.carousel-item img {
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.carousel-item:hover img {
+  transform: scale(1.05);
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 152, 0, 0.9);
+  color: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-speed) ease;
+  z-index: 10;
+  box-shadow: var(--shadow-md);
+}
+
+.carousel-btn:hover {
+  background-color: var(--color-primary-orange-dark);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-btn:focus {
+  outline: 2px solid var(--color-dark);
+  outline-offset: 2px;
+}
+
+.carousel-btn-prev {
+  left: var(--spacing-md);
+}
+
+.carousel-btn-next {
+  right: var(--spacing-md);
+}
+
+/* Carousel Indicators */
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-md) 0;
+}
+
+.carousel-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--color-medium-gray);
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+  border: 2px solid transparent;
+}
+
+.carousel-indicator:hover {
+  background-color: var(--color-primary-orange);
+}
+
+.carousel-indicator.active {
+  background-color: var(--color-primary-orange);
+  width: 32px;
+  border-radius: 12px;
+}
+
+/* Responsive Carousel */
+@media (max-width: 1024px) {
+  .carousel-item {
+    max-height: 60vh;
+  }
+
+  .carousel-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .carousel-btn-prev {
+    left: var(--spacing-sm);
+  }
+
+  .carousel-btn-next {
+    right: var(--spacing-sm);
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-section {
+    padding: var(--spacing-lg) 0;
+  }
+
+  .carousel-container {
+    margin: var(--spacing-lg) auto;
+  }
+
+  .carousel-item {
+    max-height: 50vh;
+  }
+
+  .carousel-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+
+  .carousel-indicators {
+    gap: var(--spacing-xs);
+  }
+
+  .carousel-indicator {
+    width: 10px;
+    height: 10px;
+  }
+
+  .carousel-indicator.active {
+    width: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-item {
+    max-height: 40vh;
+  }
+
+  .carousel-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+  }
+
+  .carousel-btn-prev {
+    left: var(--spacing-xs);
+  }
+
+  .carousel-btn-next {
+    right: var(--spacing-xs);
+  }
+}
+
 /* Hoog contrast mode support */
 @media (prefers-contrast: more) {
-  --color-primary-orange: #e85a0b;
-  --color-secondary-green: #2e7d32;
-  --color-dark: #000000;
+  :root {
+    --color-primary-orange: #e85a0b;
+    --color-secondary-green: #2e7d32;
+    --color-dark: #000000;
+  }
 }

@@ -217,6 +217,11 @@ async function loadProjects() {
     if (document.getElementById("portfolio-preview-grid")) {
       renderPortfolioPreview();
     }
+
+    // Render complete fotogalerij op index.html
+    if (document.getElementById("gallery-grid")) {
+      renderPhotoGallery();
+    }
   } catch (error) {
     console.error("Error loading projects:", error);
     const errorElement = document.getElementById("projects-error");
@@ -299,6 +304,71 @@ function renderPortfolioPreview() {
   previewProjects.forEach((project) => {
     const card = createProjectCard(project);
     previewGrid.appendChild(card);
+  });
+}
+
+/**
+ * Render all project photos in a responsive gallery
+ */
+function renderPhotoGallery() {
+  const galleryGrid = document.getElementById("gallery-grid");
+  if (!galleryGrid) return;
+
+  galleryGrid.innerHTML = "";
+
+  const galleryItems = [];
+
+  allProjects.forEach((project) => {
+    const images =
+      project.images && project.images.length > 0
+        ? project.images
+        : [project.coverImage];
+
+    images.forEach((image, index) => {
+      galleryItems.push({
+        src: image,
+        title: project.title,
+        category: project.category,
+        projectId: project.id,
+        imageIndex: index + 1,
+      });
+    });
+  });
+
+  galleryItems.forEach((item) => {
+    const galleryButton = document.createElement("button");
+    galleryButton.type = "button";
+    galleryButton.className = "gallery-tile";
+    galleryButton.setAttribute(
+      "aria-label",
+      `${item.title}, foto ${item.imageIndex}`,
+    );
+
+    galleryButton.innerHTML = `
+      <div class="gallery-tile-image">
+        <img src="${item.src}" alt="${item.title}" loading="lazy">
+      </div>
+      <div class="gallery-tile-content">
+        <span class="gallery-tile-label">${item.category}</span>
+        <strong>${item.title}</strong>
+      </div>
+    `;
+
+    const img = galleryButton.querySelector("img");
+    img.addEventListener("error", function () {
+      this.src = getPlaceholderImage();
+    });
+
+    galleryButton.addEventListener("click", () => {
+      const project = allProjects.find(
+        (projectItem) => projectItem.id === item.projectId,
+      );
+      if (project) {
+        openProjectModal(project);
+      }
+    });
+
+    galleryGrid.appendChild(galleryButton);
   });
 }
 
@@ -434,7 +504,160 @@ function setupModalControls() {
 document.addEventListener("DOMContentLoaded", function () {
   loadProjects();
   setupModalControls();
+  initializeCarousel();
 });
+
+/**
+ * CAROUSEL FUNCTIONALITY
+ * Dynamisch carousel voor projectfoto's
+ */
+
+let carouselState = {
+  currentIndex: 0,
+  items: [],
+  totalItems: 0,
+};
+
+/**
+ * Initialize the carousel
+ */
+function initializeCarousel() {
+  const carouselTrack = document.getElementById("carousel-track");
+  const prevBtn = document.getElementById("carousel-prev");
+  const nextBtn = document.getElementById("carousel-next");
+
+  if (!carouselTrack || !allProjects.length) return;
+
+  // Flatten all images from all projects
+  carouselState.items = [];
+  allProjects.forEach((project) => {
+    if (project.images && project.images.length > 0) {
+      project.images.forEach((image) => {
+        carouselState.items.push({
+          src: image,
+          title: project.title,
+        });
+      });
+    }
+  });
+
+  carouselState.totalItems = carouselState.items.length;
+
+  if (carouselState.totalItems === 0) return;
+
+  // Render carousel items
+  renderCarouselItems();
+
+  // Setup indicators
+  setupCarouselIndicators();
+
+  // Setup navigation buttons
+  if (prevBtn && nextBtn) {
+    prevBtn.addEventListener("click", () => prevCarouselItem());
+    nextBtn.addEventListener("click", () => nextCarouselItem());
+
+    // Keyboard navigation
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") prevCarouselItem();
+      if (e.key === "ArrowRight") nextCarouselItem();
+    });
+  }
+
+  // Auto-advance carousel every 5 seconds
+  setInterval(() => {
+    nextCarouselItem();
+  }, 5000);
+}
+
+/**
+ * Render carousel items
+ */
+function renderCarouselItems() {
+  const carouselTrack = document.getElementById("carousel-track");
+  carouselTrack.innerHTML = "";
+
+  carouselState.items.forEach((item) => {
+    const carouselItem = document.createElement("div");
+    carouselItem.className = "carousel-item";
+
+    const img = document.createElement("img");
+    img.src = item.src;
+    img.alt = item.title;
+    img.addEventListener("error", function () {
+      this.src = getPlaceholderImage();
+    });
+
+    carouselItem.appendChild(img);
+    carouselTrack.appendChild(carouselItem);
+  });
+
+  updateCarouselPosition();
+}
+
+/**
+ * Setup carousel indicators
+ */
+function setupCarouselIndicators() {
+  const indicatorsContainer = document.getElementById("carousel-indicators");
+  indicatorsContainer.innerHTML = "";
+
+  carouselState.items.forEach((_, index) => {
+    const indicator = document.createElement("button");
+    indicator.className = "carousel-indicator";
+    if (index === 0) indicator.classList.add("active");
+
+    indicator.addEventListener("click", () => {
+      carouselState.currentIndex = index;
+      updateCarouselPosition();
+      updateIndicators();
+    });
+
+    indicatorsContainer.appendChild(indicator);
+  });
+}
+
+/**
+ * Move to next carousel item
+ */
+function nextCarouselItem() {
+  carouselState.currentIndex =
+    (carouselState.currentIndex + 1) % carouselState.totalItems;
+  updateCarouselPosition();
+  updateIndicators();
+}
+
+/**
+ * Move to previous carousel item
+ */
+function prevCarouselItem() {
+  carouselState.currentIndex =
+    (carouselState.currentIndex - 1 + carouselState.totalItems) %
+    carouselState.totalItems;
+  updateCarouselPosition();
+  updateIndicators();
+}
+
+/**
+ * Update carousel position based on current index
+ */
+function updateCarouselPosition() {
+  const carouselTrack = document.getElementById("carousel-track");
+  const offset = -carouselState.currentIndex * 100;
+  carouselTrack.style.transform = `translateX(${offset}%)`;
+}
+
+/**
+ * Update active indicator
+ */
+function updateIndicators() {
+  const indicators = document.querySelectorAll(".carousel-indicator");
+  indicators.forEach((indicator, index) => {
+    indicator.classList.remove("active");
+    if (index === carouselState.currentIndex) {
+      indicator.classList.add("active");
+    }
+  });
+}
 
 /**
  * SUPPORT VOOR ROOT ARRAY EN ROOT OBJECT PROJECTSTRUCTUREN

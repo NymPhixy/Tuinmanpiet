@@ -36,6 +36,7 @@
                     <li><a href="#home" class="nav-link">Home</a></li>
                     <li><a href="#services" class="nav-link">Werkzaamheden</a></li>
                     <li><a href="projecten.html" class="nav-link">Projecten</a></li>
+                    <li><a href="#gallery" class="nav-link">Foto's</a></li>
                     <li><a href="#about" class="nav-link">Over Piet</a></li>
                     <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
@@ -69,7 +70,7 @@
 
                 <!-- Placeholder afbeelding -->
                 <div class="hero-image">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400'%3E%3Crect fill='%234caf50' width='600' height='400'/%3E%3Ctext x='50%25' y='50%25' font-size='28' fill='white' text-anchor='middle' dominant-baseline='middle' font-family='sans-serif' font-weight='bold'%3EMooi tuinproject%3C/text%3E%3C/svg%3E"
+                    <img src="assets/img/projects/WhatsApp Image 2026-08-11 at 15.35.33.jpeg"
                         alt="Mooi aangelegde tuin in Musselkanaal">
                 </div>
             </div>
@@ -135,6 +136,32 @@
         </section>
 
         <!-- ============================================
+             PROJECT CARROUSEL SECTIE
+             ============================================ -->
+        <section id="carousel" class="carousel-section">
+            <!-- Carrousel Container -->
+            <div class="carousel-container">
+                <!-- Carousel Track -->
+                <div class="carousel-track" id="carousel-track">
+                    <!-- Project carousel items worden hier dynamisch ingeladen -->
+                </div>
+
+                <!-- Navigatie Knoppen -->
+                <button class="carousel-btn carousel-btn-prev" id="carousel-prev" aria-label="Vorige project">
+                    <span>&#10094;</span>
+                </button>
+                <button class="carousel-btn carousel-btn-next" id="carousel-next" aria-label="Volgende project">
+                    <span>&#10095;</span>
+                </button>
+            </div>
+
+            <!-- Carousel Indicators -->
+            <div class="carousel-indicators" id="carousel-indicators">
+                <!-- Indicators worden hier dynamisch ingeladen -->
+            </div>
+        </section>
+
+        <!-- ============================================
              PORTFOLIO PREVIEW SECTIE
              ============================================ -->
         <section id="portfolio" class="portfolio">
@@ -152,6 +179,20 @@
                     <a href="projecten.html" class="btn btn-primary">
                         Bekijk alle projecten
                     </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================
+             FOTOGALERIJ SECTIE
+             ============================================ -->
+        <section id="gallery" class="gallery">
+            <div class="container">
+                <h2 class="section-title">Alle foto's</h2>
+                <p class="section-subtitle">Een snel en overzichtelijk beeld van al het uitgevoerde werk.</p>
+
+                <div id="gallery-grid" class="gallery-grid" aria-live="polite">
+                    <!-- Alle foto's worden hier dynamisch ingeladen -->
                 </div>
             </div>
         </section>
@@ -246,6 +287,7 @@
                     <li><a href="#home">Home</a></li>
                     <li><a href="#services">Werkzaamheden</a></li>
                     <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#gallery">Foto's</a></li>
                     <li><a href="#about">Over Piet</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
