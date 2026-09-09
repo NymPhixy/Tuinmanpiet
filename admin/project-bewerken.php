@@ -15,6 +15,10 @@ if ($id <= 0) {
 $error = '';
 $success = '';
 
+if (isset($_GET['created']) && $_GET['created'] === '1') {
+    $success = 'Project succesvol toegevoegd. Je kunt het project hieronder nog controleren of aanpassen.';
+}
+
 $stmt = $pdo->prepare("SELECT * FROM projects WHERE id = :id LIMIT 1");
 $stmt->execute(['id' => $id]);
 $project = $stmt->fetch(PDO::FETCH_ASSOC);

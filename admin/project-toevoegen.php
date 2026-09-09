@@ -120,7 +120,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
 
-            $success = 'Project succesvol toegevoegd.';
+            header('Location: project-bewerken.php?id=' . $projectId . '&created=1');
+exit;
         } catch (Exception $e) {
             $error = $e->getMessage();
         }
