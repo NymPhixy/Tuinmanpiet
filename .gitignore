@@ -15,3 +15,21 @@ Thumbs.db
 # Tijdelijke bestanden
 *.tmp
 *.bak
+
+# Lokale omgeving
+.env
+*.log
+
+# Uploads van gebruikers / klantfoto's
+uploads/projects/*
+!uploads/projects/index.html
+
+# OS / editor bestanden
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Tijdelijke bestanden
+*.tmp
+*.bak
