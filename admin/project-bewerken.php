@@ -275,9 +275,9 @@ $categories = ['Aanleg', 'Onderhoud', 'Renovatie', 'Bestrating', 'Schuttingen', 
     </div>
 
     <div class="admin-header-actions">
-        <a href="../index.php" class="btn btn-outline" target="_blank">Bekijk website</a>
-        <a href="logout.php" class="btn btn-secondary">Uitloggen</a>
-    </div>
+    <a href="../index.php" class="btn btn-outline" target="_blank">Bekijk website</a>
+    <a href="logout.php" class="btn btn-secondary">Uitloggen</a>
+</div>
 </header>
 
     <main class="admin-layout">
