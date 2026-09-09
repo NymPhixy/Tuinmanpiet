@@ -1,54 +1,12 @@
 <?php
 require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/auth.php';
+require_once __DIR__ . '/../includes/upload.php';
 
 requireLogin();
 
 $error = '';
 $success = '';
-
-function uploadProjectImage(array $file, string $prefix = 'project_'): ?string
-{
-    $allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
-    $maxFileSize = 5 * 1024 * 1024; // 5 MB
-
-    if (empty($file['tmp_name']) || empty($file['name'])) {
-        return null;
-    }
-
-    if (($file['error'] ?? UPLOAD_ERR_OK) !== UPLOAD_ERR_OK) {
-        throw new Exception('Er ging iets mis tijdens het uploaden van de afbeelding.');
-    }
-
-    $fileTmpPath = $file['tmp_name'];
-    $fileName = $file['name'];
-    $fileSize = $file['size'];
-    $fileType = mime_content_type($fileTmpPath);
-
-    if (!in_array($fileType, $allowedTypes, true)) {
-        throw new Exception('Alleen JPG, PNG en WEBP afbeeldingen zijn toegestaan.');
-    }
-
-    if ($fileSize > $maxFileSize) {
-        throw new Exception('Een afbeelding mag maximaal 5 MB zijn.');
-    }
-
-    $extension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-    $safeFileName = uniqid($prefix, true) . '.' . $extension;
-
-    $uploadDir = __DIR__ . '/../uploads/projects/';
-    $targetPath = $uploadDir . $safeFileName;
-
-    if (!is_dir($uploadDir)) {
-        mkdir($uploadDir, 0755, true);
-    }
-
-    if (!move_uploaded_file($fileTmpPath, $targetPath)) {
-        throw new Exception('Uploaden van afbeelding is mislukt.');
-    }
-
-    return 'uploads/projects/' . $safeFileName;
-}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = trim($_POST['title'] ?? '');
@@ -72,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         try {
             if (!empty($_FILES['cover_image']['name'])) {
-                $coverImagePath = uploadProjectImage($_FILES['cover_image'], 'project_cover_');
+                $coverImagePath = uploadProjectImage($_FILES['cover_image']);
             }
 
             $stmt = $pdo->prepare("
@@ -143,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         continue;
                     }
 
-                    $imagePath = uploadProjectImage($singleFile, 'project_extra_');
+                    $imagePath = uploadProjectImage($singleFile);
 
                     if ($imagePath) {
                         $imageStmt = $pdo->prepare("
@@ -168,6 +126,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
+$categories = ['Aanleg', 'Onderhoud', 'Renovatie', 'Bestrating', 'Schuttingen', 'Snoeiwerk', 'Overig'];
 ?>
 
 <!DOCTYPE html>
@@ -180,187 +140,186 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body class="admin-page">
 
-    <header class="admin-header">
+<header class="admin-header">
     <div>
-        <h1>Dashboard</h1>
-        <p>Welkom, <?= htmlspecialchars($userName ?? currentUserName()) ?>.</p>
+        <h1>Project toevoegen</h1>
+        <p>Voeg een nieuwe klus toe met foto’s en projectdocumentatie.</p>
     </div>
 
-  <div class="admin-header-actions">
-    <a href="../index.php" class="btn btn-outline" target="_blank">Bekijk website</a>
-    <a href="logout.php" class="btn btn-secondary">Uitloggen</a>
-</div>
+    <div class="admin-header-actions">
+        <a href="../index.php" class="btn btn-outline" target="_blank">Bekijk website</a>
+        <a href="logout.php" class="btn btn-secondary">Uitloggen</a>
+    </div>
 </header>
 
-    <main class="admin-layout">
-        <aside class="admin-sidebar">
-            <nav>
-                <a href="dashboard.php">Dashboard</a>
-                <a href="project-toevoegen.php" class="active">Project toevoegen</a>
-                <a href="projecten-beheren.php">Projecten beheren</a>
-            </nav>
-        </aside>
+<main class="admin-layout">
+    <aside class="admin-sidebar">
+        <nav>
+            <a href="dashboard.php">Dashboard</a>
+            <a href="project-toevoegen.php" class="active">Project toevoegen</a>
+            <a href="projecten-beheren.php">Projecten beheren</a>
+        </nav>
+    </aside>
 
-        <section class="admin-content admin-content-wide">
-            <div class="dashboard-card form-card">
-                <h2>Nieuw project / klus</h2>
+    <section class="admin-content admin-content-wide">
+        <div class="dashboard-card form-card">
+            <h2>Nieuw project / klus</h2>
 
-                <?php if ($error): ?>
-                    <div class="alert alert-error">
-                        <?= htmlspecialchars($error) ?>
-                    </div>
-                <?php endif; ?>
+            <?php if ($error): ?>
+                <div class="alert alert-error">
+                    <?= htmlspecialchars($error) ?>
+                </div>
+            <?php endif; ?>
 
-                <?php if ($success): ?>
-                    <div class="alert alert-success">
-                        <?= htmlspecialchars($success) ?>
-                    </div>
-                <?php endif; ?>
+            <?php if ($success): ?>
+                <div class="alert alert-success">
+                    <?= htmlspecialchars($success) ?>
+                </div>
+            <?php endif; ?>
 
-                <form method="POST" enctype="multipart/form-data">
-                    <h3 class="form-section-title">Publieke projectinformatie</h3>
+            <form method="POST" enctype="multipart/form-data">
+                <h3 class="form-section-title">Publieke projectinformatie</h3>
 
-                    <div class="form-group">
-                        <label for="title">Projecttitel *</label>
-                        <input 
-                            type="text" 
-                            id="title" 
-                            name="title" 
-                            required
-                            placeholder="Bijvoorbeeld: Tuinonderhoud in Musselkanaal"
-                        >
-                    </div>
+                <div class="form-group">
+                    <label for="title">Projecttitel *</label>
+                    <input 
+                        type="text" 
+                        id="title" 
+                        name="title" 
+                        required
+                        placeholder="Bijvoorbeeld: Tuinonderhoud in Musselkanaal"
+                    >
+                </div>
 
-                    <div class="form-group">
-                        <label for="category">Categorie *</label>
-                        <select id="category" name="category" required>
-                            <option value="">Kies een categorie</option>
-                            <option value="Aanleg">Aanleg</option>
-                            <option value="Onderhoud">Onderhoud</option>
-                            <option value="Renovatie">Renovatie</option>
-                            <option value="Bestrating">Bestrating</option>
-                            <option value="Schuttingen">Schuttingen</option>
-                            <option value="Snoeiwerk">Snoeiwerk</option>
-                            <option value="Overig">Overig</option>
-                        </select>
-                    </div>
+                <div class="form-group">
+                    <label for="category">Categorie *</label>
+                    <select id="category" name="category" required>
+                        <option value="">Kies een categorie</option>
 
-                    <div class="form-group">
-                        <label for="location">Locatie</label>
-                        <input 
-                            type="text" 
-                            id="location" 
-                            name="location" 
-                            placeholder="Bijvoorbeeld: Musselkanaal"
-                        >
-                    </div>
+                        <?php foreach ($categories as $categoryOption): ?>
+                            <option value="<?= htmlspecialchars($categoryOption) ?>">
+                                <?= htmlspecialchars($categoryOption) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
 
-                    <div class="form-group">
-                        <label for="project_date">Datum uitgevoerd</label>
-                        <input 
-                            type="date" 
-                            id="project_date" 
-                            name="project_date"
-                        >
-                    </div>
+                <div class="form-group">
+                    <label for="location">Locatie</label>
+                    <input 
+                        type="text" 
+                        id="location" 
+                        name="location" 
+                        placeholder="Bijvoorbeeld: Musselkanaal"
+                    >
+                </div>
 
-                    <div class="form-group">
-                        <label for="description">Omschrijving voor website</label>
-                        <textarea 
-                            id="description" 
-                            name="description" 
-                            rows="5" 
-                            placeholder="Korte omschrijving die bezoekers mogen zien"
-                        ></textarea>
-                    </div>
+                <div class="form-group">
+                    <label for="project_date">Datum uitgevoerd</label>
+                    <input 
+                        type="date" 
+                        id="project_date" 
+                        name="project_date"
+                    >
+                </div>
 
-                    <div class="form-group">
-                        <label for="status">Status</label>
-                        <select id="status" name="status">
-                            <option value="published">Gepubliceerd</option>
-                            <option value="concept">Concept</option>
-                        </select>
-                        <small>Concepten zijn bedoeld voor beheer en kunnen later gepubliceerd worden.</small>
-                    </div>
+                <div class="form-group">
+                    <label for="description">Omschrijving voor website</label>
+                    <textarea 
+                        id="description" 
+                        name="description" 
+                        rows="5" 
+                        placeholder="Korte omschrijving die bezoekers mogen zien"
+                    ></textarea>
+                </div>
 
-                    <h3 class="form-section-title">Interne klusdocumentatie</h3>
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select id="status" name="status">
+                        <option value="published">Gepubliceerd</option>
+                        <option value="concept">Concept</option>
+                    </select>
+                    <small>Concepten zijn bedoeld voor beheer en kunnen later gepubliceerd worden.</small>
+                </div>
 
-                    <div class="form-group">
-                        <label for="hours_worked">Aantal gewerkte uren</label>
-                        <input 
-                            type="number" 
-                            id="hours_worked" 
-                            name="hours_worked" 
-                            step="0.25" 
-                            min="0"
-                            placeholder="Bijvoorbeeld: 6.5"
-                        >
-                    </div>
+                <h3 class="form-section-title">Interne klusdocumentatie</h3>
 
-                    <div class="form-group">
-                        <label for="materials">Gebruikte materialen</label>
-                        <textarea 
-                            id="materials" 
-                            name="materials" 
-                            rows="4"
-                            placeholder="Bijvoorbeeld: schuttingdelen, palen, schroeven, grond, planten"
-                        ></textarea>
-                    </div>
+                <div class="form-group">
+                    <label for="hours_worked">Aantal gewerkte uren</label>
+                    <input 
+                        type="number" 
+                        id="hours_worked" 
+                        name="hours_worked" 
+                        step="0.25" 
+                        min="0"
+                        placeholder="Bijvoorbeeld: 6.5"
+                    >
+                </div>
 
-                    <div class="form-group">
-                        <label for="material_costs">Materiaalkosten ongeveer</label>
-                        <input 
-                            type="number" 
-                            id="material_costs" 
-                            name="material_costs" 
-                            step="0.01" 
-                            min="0"
-                            placeholder="Bijvoorbeeld: 240.00"
-                        >
-                    </div>
+                <div class="form-group">
+                    <label for="materials">Gebruikte materialen</label>
+                    <textarea 
+                        id="materials" 
+                        name="materials" 
+                        rows="4"
+                        placeholder="Bijvoorbeeld: schuttingdelen, palen, schroeven, grond, planten"
+                    ></textarea>
+                </div>
 
-                    <div class="form-group">
-                        <label for="work_notes">Interne werknotities</label>
-                        <textarea 
-                            id="work_notes" 
-                            name="work_notes" 
-                            rows="5"
-                            placeholder="Bijzonderheden, afspraken, wat er precies gedaan is, aandachtspunten"
-                        ></textarea>
-                    </div>
+                <div class="form-group">
+                    <label for="material_costs">Materiaalkosten ongeveer</label>
+                    <input 
+                        type="number" 
+                        id="material_costs" 
+                        name="material_costs" 
+                        step="0.01" 
+                        min="0"
+                        placeholder="Bijvoorbeeld: 240.00"
+                    >
+                </div>
 
-                    <h3 class="form-section-title">Foto’s</h3>
+                <div class="form-group">
+                    <label for="work_notes">Interne werknotities</label>
+                    <textarea 
+                        id="work_notes" 
+                        name="work_notes" 
+                        rows="5"
+                        placeholder="Bijzonderheden, afspraken, wat er precies gedaan is, aandachtspunten"
+                    ></textarea>
+                </div>
 
-                    <div class="form-group">
-                        <label for="cover_image">Hoofdafbeelding</label>
-                        <input 
-                            type="file" 
-                            id="cover_image" 
-                            name="cover_image" 
-                            accept="image/jpeg,image/png,image/webp"
-                        >
-                        <small>Deze afbeelding wordt gebruikt als thumbnail/hoofdfoto van het project.</small>
-                    </div>
+                <h3 class="form-section-title">Foto’s</h3>
 
-                    <div class="form-group">
-                        <label for="project_images">Extra projectfoto’s</label>
-                        <input 
-                            type="file" 
-                            id="project_images" 
-                            name="project_images[]" 
-                            accept="image/jpeg,image/png,image/webp" 
-                            multiple
-                        >
-                        <small>Je kunt meerdere foto’s tegelijk selecteren. Deze blijven gekoppeld aan dit project.</small>
-                    </div>
+                <div class="form-group">
+                    <label for="cover_image">Hoofdafbeelding</label>
+                    <input 
+                        type="file" 
+                        id="cover_image" 
+                        name="cover_image" 
+                        accept="image/jpeg,image/png,image/webp"
+                    >
+                    <small>Deze afbeelding wordt gebruikt als thumbnail/hoofdfoto van het project.</small>
+                </div>
 
-                    <button type="submit" class="btn btn-primary">
-                        Project opslaan
-                    </button>
-                </form>
-            </div>
-        </section>
-    </main>
+                <div class="form-group">
+                    <label for="project_images">Extra projectfoto’s</label>
+                    <input 
+                        type="file" 
+                        id="project_images" 
+                        name="project_images[]" 
+                        accept="image/jpeg,image/png,image/webp" 
+                        multiple
+                    >
+                    <small>Je kunt meerdere foto’s tegelijk selecteren. Deze blijven gekoppeld aan dit project.</small>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Project opslaan
+                </button>
+            </form>
+        </div>
+    </section>
+</main>
 
 </body>
 </html>
